@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+        <script type="text/javascript" src="//platform.linkedin.com/in.js">
+            api_key: 77ljgzu2dn7yn9
+            authorize: true
+        </script>
+
+        <script type="text/javascript">
+          function logout() {
+          IN.Event.onOnce(IN, 'systemReady', function() {
+          try {
+            IN.User.logout();
+            } catch (err) {
+            console.log(err);
+            }
+            setTimeout("goToHome()", 10000);
+            });
+          }
+
+        function goToHome() {
+            console.log("You have successfully logged Out");
+            localStorage.setItem("userid","");
+            localStorage.setItem("selval","");
+        location.href="/login.html";
+        }
+</script>
+    </head>
+    <body style="background-image:url(logoff.jpg)">
+      
+    </body>
+</html>

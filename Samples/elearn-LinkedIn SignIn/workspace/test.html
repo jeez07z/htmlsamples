@@ -1,0 +1,46 @@
+<script type="text/javascript" src="//platform.linkedin.com/in.js">
+  api_key: 77ljgzu2dn7yn9
+  authorize: true
+</script>
+
+<script type="text/javascript">
+
+  // Handle the successful return from the API call
+  function onSuccess(data) {
+    console.log(data);
+  }
+
+  // Handle an error response from the API call
+  function onError(error) {
+    console.log(error);
+  }
+
+  // Use the API call wrapper to share content on LinkedIn
+  function shareContent() {
+        var postVal1 = "Linkedin";
+    // Build the JSON payload containing the content to be shared
+    var payload = {
+      "comment": postVal1, 
+      "visibility": { 
+        "code": "anyone"
+      } 
+    };
+
+    var cpnyID = 2414183;
+
+    IN.API.Raw("/companies/" + cpnyID + "/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+
+  
+    IN.API.Raw("/people/~/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+  }
+</script>
+
+<button onclick="shareContent()">abc</button>

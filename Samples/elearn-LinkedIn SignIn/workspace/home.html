@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <!-- Login Bootstrap -->
+	<!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+    
+    <title>eLearn</title>
+     <script type = "text/javascript" src ="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+     <script type = "text/javascript" src ="home.js"></script>
+     <script type="text/javascript" src="//platform.linkedin.com/in.js">
+            api_key: 77ljgzu2dn7yn9
+            authorize: true
+        </script>
+    <script type="text/javascript">
+
+  // Handle the successful return from the API call
+  function onSuccess(data) {
+    console.log(data);
+  }
+
+  // Handle an error response from the API call
+  function onError(error) {
+    console.log(error);
+  }
+
+  // Use the API call wrapper to share content on LinkedIn
+  function shareContent() {
+      var postVal1 = localStorage.getItem("linkVal");
+        var payload = { "comment": postVal1,  "visibility": {"code": "anyone" }};
+    // Build the JSON payload containing the content to be shared
+    var payload = {
+      "comment": postVal1, 
+      "visibility": { 
+        "code": "anyone"
+      } 
+    };
+
+    var cpnyID = 2414183;
+
+    IN.API.Raw("/companies/" + cpnyID + "/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+      
+       IN.API.Raw("/people/~/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+  }
+  
+    function shareVideos() {
+      var vidVal1 = localStorage.getItem("videoVal");
+        var payload = { "comment": vidVal1,  "visibility": {"code": "anyone" }};
+    // Build the JSON payload containing the content to be shared
+    var payload = {
+      "comment": vidVal1, 
+      "visibility": { 
+        "code": "anyone"
+      } 
+    };
+
+    var cpnyID = 2414183;
+
+    IN.API.Raw("/companies/" + cpnyID + "/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+      
+       IN.API.Raw("/people/~/shares?format=json")
+      .method("POST")
+      .body(JSON.stringify(payload))
+      .result(onSuccess)
+      .error(onError);
+}
+</script>
+    </head>
+    <body>
+    <table align="center"><tr><td>
+    <H1>Books</H1>
+    <div id="books"></div><button onclick='shareContent()'>Share</button>
+    </br>________________________________</br>
+    <H1>Training Videos</H1>
+         <div id="videos"></div><button onclick='shareVideos()'>Share</button>
+    </br>________________________________</br>   
+    <H1>Members</H1>
+    <div id="members"></div>
+    </br></br>
+    <button class="btn" type="submit" onclick=logout();>Sign Out</button>
+    </td></tr></table>
+    
+    </body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Validate</title>
+        <script type = "text/javascript" src = "//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script type = "text/javascript">
+        window.onload = function() {
+        var uid = localStorage.getItem('userid');
+       // var obj1 = $.parseJSON(obj);
+         $.ajax({
+         url: "https://jeez07z.cloudant.com/elearn1/"+uid,
+         type: "GET",
+         xhrFields: {
+              "withCredentials": "true"
+           },
+         dataType: "json",
+         contentType: "application/json"
+            })
+         .done(function (data) {
+         var id1 = data._id;
+         var jsonresp = JSON.stringify(data);
+         console.log("Response " + jsonresp);
+         document.getElementById('name').value = data.firstName+" "+data.lastName;
+         document.getElementById('headline').value = data.headline;
+         document.getElementById('location').value = data.location.name;
+         document.getElementById('summary').value = data.summary;
+         document.getElementById('imagepic').src = data.pictureUrl;
+         });
+        
+        };
+    </script>
+    <script type = "text/javascript">
+        function movehome()
+        {
+            if($("input[name=tech]:checked").val() == null || $("input[name=tech]:checked").val() == "")
+            {
+            alert("Choose Interest");
+            document.getElementById('valid').style.display = "block";
+            }
+            else{
+            var selectedVal = $("input[name=tech]:checked").val();   
+            localStorage.setItem("selVal", selectedVal);
+            window.location.href="home.html";    
+            }
+        }
+    </script>           
+    </head>
+    <body>
+            <table align="center" ><tr><td>    
+            <form align="center">
+                    
+                <p>
+                    <label><b>Name:</b>
+                    <input type="text" id="name" name="name" readonly>
+                    </label> 
+                </p>
+                    
+                <p>
+                    <label><b>Headline</b>
+                    <input type="text" id="headline" name="headline" readonly>
+                    </label>
+                    </p>
+                    
+                    <p>
+                    <label><b>Location:</b>
+                    <input type="text" id="location" name="location" readonly>
+                    </label>
+                    </p>
+                    
+                    
+                    <p>
+                    <IMG id="imagepic" src="" />
+                    </p>
+                    
+            
+                    <p>
+                    <label><b>Choose your topic:</b></label>
+                    <input type="radio" name="tech" required value="java"> Java </label>
+                    <input type="radio" name="tech" required value="dotnet"> Dot Net </label>
+                    <input type="radio" name="tech" required value="adobe"> Adobe </label>
+                    </p>
+                    
+                    <p><div id="valid" style="display:none;"><font color="red" >Choose one above</font></p></div>
+                    
+                    <p>
+                        <label><b>Summary:</b></label>
+                        <textarea rows="5" cols="25" id="summary"></textarea>
+                    </p>
+                    
+                    <p><input type="button" onclick="movehome()" value="Next"></input></p>
+                    
+                </form>
+            </td></tr></table>
+    
+    </body>
+</html>
